@@ -8,6 +8,13 @@ template <class T>
 class FakeTree {
 	SortedList<T> list;
 		public:
+	~FakeTree() {
+		list.start();
+		while(!list.end()){
+			delete *list.getCurrent();
+			list.next();
+		}
+	}
 	StatusType insert(T item) {
 			list.start();
 			while(!list.end()) {

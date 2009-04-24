@@ -17,13 +17,6 @@ class Festival {
 	FakeTree<BandByVotes*> bands_by_votes;
 		public:
 	Festival(int budget) : budget(budget) {};
-	~Festival() {
-//		bands.start();
-//		while(!bands.end()){
-//			delete *bands.getCurrent();
-//			bands.next();
-//		}
-	}
 	StatusType ChangeBudget(int budget);
 	StatusType AddBand(int bandID, int price);
 	StatusType RemoveBand(int bandID);
