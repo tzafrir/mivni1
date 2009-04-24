@@ -45,7 +45,17 @@ class FakeTree {
 		}
 		return FAILURE;
 	}
-
+	
+	T find(T key) {
+		list.start();
+		while (!list.end()) {
+			if ((**list.getCurrent()) == *key) {
+				return *list.getCurrent();
+			}
+			list.next();
+		}
+		return NULL;
+	}
 };
 
 #endif /* __FAKETREE_H__ */
