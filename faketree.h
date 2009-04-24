@@ -4,6 +4,8 @@
 #include "sortedlist.h"
 #include "library1.h"
 
+// TODO: When does the tree release memory? When should I?1
+
 template <class T>
 class FakeTree {
 	SortedList<T> list;
@@ -20,7 +22,6 @@ class FakeTree {
 			while(!list.end()) {
 				if (list.getCurrent() != NULL) {
 					if (*item == **list.getCurrent()) {
-						delete item;
 						return FAILURE;
 					}
 					list.next();
