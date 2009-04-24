@@ -21,4 +21,18 @@ class Band {
 	}
 };
 
+class BandByPrice {
+	Band* band;
+		public:
+	bool operator< (BandByPrice b) {
+		return (this->price < b.price);
+	}
+	bool operator> (BandByPrice b) {
+		return (this->price > b.price);	
+	}
+	friend bool operator== (BandByPrice a, BandByPrice b) {
+		return (*a.band == *b.band);
+	}
+}
+
 #endif
