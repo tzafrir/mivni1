@@ -26,10 +26,20 @@ class BandByPrice {
 		public:
 	BandByPrice(Band* new_band) : band(new_band) {};
 	bool operator< (BandByPrice b) {
-		return (this->band->price < b.band->price);
+		if (this->band->price < b.band->price) {
+			return true;
+		} else if (this->band->price == b.band->price) {
+			return (this->band->band_id < b.band->band_id);
+		}
+		return false;
 	}
 	bool operator> (BandByPrice b) {
-		return (this->band->price > b.band->price);	
+		if (this->band->price > b.band->price) {
+			return true;
+		} else if (this->band->price == b.band->price) {
+			return (this->band->band_id > b.band->band_id);
+		}
+		return false;
 	}
 	friend bool operator== (BandByPrice a, BandByPrice b) {
 		return (*a.band == *b.band);
@@ -46,10 +56,9 @@ class BandByVotes {
 		} else if (this->band->votes == b.band->votes) {
 			if (this->band->price < b.band->price) {
 				return true;
-			} else {
-				return (this->band->band_id < b.band->band_id);
-			}
+			} 
 		}
+		return (this->band->band_id < b.band->band_id);
 	}
 	bool operator> (BandByVotes b) {
 		if (*this == b) {
