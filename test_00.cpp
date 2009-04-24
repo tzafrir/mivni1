@@ -12,7 +12,7 @@ string stat2str(StatusType stat) {
 		case INVALID_INPUT		:	return "INVALID_INPUT";
 		case SUCCESS			:	return "SUCCESS";
 		case FAILURE			:	return "FAILURE";
-		default					:	return "UNDEFINED";
+		default					:	return "\033[31mUNDEFINED\033[0m";
 	}
 }
 
