@@ -131,18 +131,40 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->RemoveBand(42)
 	);
-//	
-//	cout << endl << "AddVotes" << endl;
-//	
-//	expect(
-//		"bandID = -682",
-//		INVALID_INPUT,
-//		fest->AddVotes(-682, 1)
-//	);
-
 	
+	cout << endl << "AddVotes" << endl;
 	
-	
+	expect(
+		"bandID = -682",
+		INVALID_INPUT,
+		fest->AddVotes(-682, 1)
+	);
+	expect(
+		"bandID = -1, numVotes = 0",
+		INVALID_INPUT,
+		fest->AddVotes(-1, 0)
+	);
+	expect(
+		"bandID = 747, numVotes = 0",
+		INVALID_INPUT,
+		fest->AddVotes(747, 0)
+	);
+	expect(
+		"numVotes = -1",
+		INVALID_INPUT,
+		fest->AddVotes(1, -1)
+	);
+	expect(
+		"bandID = 747",
+		FAILURE,
+		fest->AddVotes(747, 1)
+	);
+	expect(
+		"bandID = 0",
+		SUCCESS,
+		fest->AddVotes(0, 1)
+	);
+		
 	
 	delete fest;
 	
