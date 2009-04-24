@@ -13,6 +13,8 @@ class Festival {
 	int num_of_bands;
 	int sum_of_prices;
 	SortedList<Band*> bands;
+	SortedList<BandByPrice> bands_by_price;
+	SortedList<BandByVotes> bands_by_votes;
 		public:
 	Festival(int budget) : budget(budget) {};
 	~Festival() {
