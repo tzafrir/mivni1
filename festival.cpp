@@ -34,27 +34,16 @@ StatusType Festival::AddBand(int bandID, int price){
 		return ALLOCATION_ERROR;
 	}
 	
-		// Inputs OK, continue:
+	// Try to insert into each one of the three trees.
 		
-	if (bands.insert(new_band) != SUCCESS) {
+	if ((bands.insert(new_band) != SUCCESS) || 
+			(bands_by_price.insert(new_band_by_price) != SUCCESS) ||
+			(bands_by_votes.insert(new_band_by_votes) != SUCCESS)) {
 		delete new_band;
 		delete new_band_by_price;
 		delete new_band_by_votes;
 		return FAILURE;
 	}
-	if (bands_by_price.insert(new_band_by_price) != SUCCESS) {
-		delete new_band;
-		delete new_band_by_price;
-		delete new_band_by_votes;
-		return FAILURE;
-	}
-	if (bands_by_votes.insert(new_band_by_votes) != SUCCESS) {
-		delete new_band;
-		delete new_band_by_price;
-		delete new_band_by_votes;
-		return FAILURE;
-	}
-	
 	return SUCCESS;
 }
 
@@ -63,5 +52,18 @@ StatusType Festival::RemoveBand(int bandID) {
 		return INVALID_INPUT;
 	}
 	Band has_id(bandID, 0);
-	return bands.remove(&has_id);
+	BandByPrice has_id_bp(&has_id);
+	BandByVotes has_id_bv(&has_id);
+	
+	// Leap of faith: I strongly believe that if a band is in one tree,
+	// it is in all of them. It must be. I will make it so.
+	
+	if (bands_by_votes.remove(&has_id_bv)) { 
+		bands_by_price.remove(&has_id_bp);
+		bands.remove(&has_id); // This must be done last,
+							   // the other trees depend on it
+		return SUCCESS;
+	} else {
+		return FAILURE;
+	}
 }
