@@ -24,6 +24,7 @@ class Band {
 class BandByPrice {
 	Band* band;
 		public:
+	BandByPrice(Band* new_band) : band(new_band) {};
 	bool operator< (BandByPrice b) {
 		return (this->band->price < b.band->price);
 	}
@@ -38,6 +39,7 @@ class BandByPrice {
 class BandByVotes {
 	Band* band;
 		public:
+	BandByVotes(Band* new_band) : band(new_band) {};
 	bool operator< (BandByVotes b) {
 		if (this->band->votes < b.band->votes) {
 			return true;
