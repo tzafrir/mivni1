@@ -22,35 +22,38 @@ StatusType Festival::AddBand(int bandID, int price){
 	if (new_band == NULL) {
 		return ALLOCATION_ERROR;
 	}
-	bands.start();
-	while(!bands.end()) {
-		if (bands.getCurrent() != NULL) {
-			if ((*bands.getCurrent())->band_id == bandID) {
-				delete new_band;
-				return FAILURE;
-			}
-			bands.next();
-		}
-	}
-	if (this->bands.add(new_band)) { // returns true for successful entering
+		// Inputs OK, continue:
+		
+//	bands.start();
+//	while(!bands.end()) {
+//		if (bands.getCurrent() != NULL) {
+//			if ((*bands.getCurrent())->band_id == bandID) {
+//				delete new_band;
+//				return FAILURE;
+//			}
+//			bands.next();
+//		}
+//	}
+//	if (this->bands.add(new_band)) { // returns true for successful entering
 		return SUCCESS;
-	} else {
-		return FAILURE;
-	}
+//	} else {
+//		return FAILURE;
+//	}
 }
 
 StatusType Festival::RemoveBand(int bandID) {
 	if (bandID < 0) {
 		return INVALID_INPUT;
 	}
-	bands.start();
-	while (!bands.end()) {
-		if ((*bands.getCurrent())->band_id == bandID) {
-			delete *bands.getCurrent();
-			bands.removeCurrent();
-			return SUCCESS;
-		}
-		bands.next();
-	}
+
+//	bands.start();
+//	while (!bands.end()) {
+//		if ((*bands.getCurrent())->band_id == bandID) {
+//			delete *bands.getCurrent();
+//			bands.removeCurrent();
+//			return SUCCESS;
+//		}
+//		bands.next();
+//	}
 	return FAILURE;
 }
