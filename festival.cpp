@@ -31,15 +31,6 @@ StatusType Festival::RemoveBand(int bandID) {
 	if (bandID < 0) {
 		return INVALID_INPUT;
 	}
-
-//	bands.start();
-//	while (!bands.end()) {
-//		if ((*bands.getCurrent())->band_id == bandID) {
-//			delete *bands.getCurrent();
-//			bands.removeCurrent();
-//			return SUCCESS;
-//		}
-//		bands.next();
-//	}
-	return FAILURE;
+	Band has_id(bandID, 0);
+	return bands.remove(&has_id);
 }

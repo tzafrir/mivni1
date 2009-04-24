@@ -26,6 +26,15 @@ class FakeTree {
 			}
 	}
 	StatusType remove(T item) { // TODO What does the real tree want here? Example?
+		list.start();
+		while (!list.end()) {
+			if ((**list.getCurrent()) == *item) {
+				delete *list.getCurrent();
+				list.removeCurrent();
+				return SUCCESS;
+			}
+			list.next();
+		}
 		return FAILURE;
 	}
 
