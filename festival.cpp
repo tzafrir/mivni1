@@ -24,21 +24,7 @@ StatusType Festival::AddBand(int bandID, int price){
 	}
 		// Inputs OK, continue:
 		
-//	bands.start();
-//	while(!bands.end()) {
-//		if (bands.getCurrent() != NULL) {
-//			if ((*bands.getCurrent())->band_id == bandID) {
-//				delete new_band;
-//				return FAILURE;
-//			}
-//			bands.next();
-//		}
-//	}
-//	if (this->bands.add(new_band)) { // returns true for successful entering
-		return SUCCESS;
-//	} else {
-//		return FAILURE;
-//	}
+	return bands.insert(new_band);
 }
 
 StatusType Festival::RemoveBand(int bandID) {

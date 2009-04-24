@@ -1,4 +1,4 @@
-CPPFLAGS=-g
+CPPFLAGS=-g -Wall -pedantic-errors
 TESTS=test_00
 test_00: test_00.cpp festival.o
 festival.o: festival.h band.h sortedlist.h library1.h faketree.h

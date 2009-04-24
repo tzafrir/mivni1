@@ -17,7 +17,7 @@ string stat2str(StatusType stat) {
 }
 
 void expect(string message, StatusType exp, StatusType result) {
-	const int len = 40;
+	const unsigned int len = 40;
 	message += ":";
 	while(message.length() < len) {
 		message += " ";
