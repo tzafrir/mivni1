@@ -1,7 +1,7 @@
 CPPFLAGS=-g
 TESTS=test_00
 test_00: test_00.cpp festival.o
-festival.o: festival.h band.h sortedlist.h library1.h
+festival.o: festival.h band.h sortedlist.h library1.h faketree.h
 tests: test_00
 	./test_00
 vg: $(TESTS)
