@@ -7,9 +7,7 @@ class Band {
 	int price;
 	int votes;
 	
-	Band(int bandID, int price)
-		: band_id(bandID), price(price), votes(0) {};
-	Band(int bandID, int price, int votes)
+	Band(int bandID, int price, int votes=0)
 		: band_id(bandID), price(price), votes(votes) {};
 	
 	bool operator< (Band b) {
