@@ -58,7 +58,7 @@ StatusType Festival::RemoveBand(int bandID) {
 	// Leap of faith: I strongly believe that if a band is in one tree,
 	// it is in all of them. It must be. I will make it so.
 	
-	if (bands_by_votes.remove(&has_id_bv)) { 
+	if (bands_by_votes.remove(&has_id_bv) == SUCCESS) { 
 		bands_by_price.remove(&has_id_bp);
 		bands.remove(&has_id); // This must be done last,
 							   // the other trees depend on it
@@ -67,3 +67,4 @@ StatusType Festival::RemoveBand(int bandID) {
 		return FAILURE;
 	}
 }
+

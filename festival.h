@@ -20,6 +20,7 @@ class Festival {
 	StatusType ChangeBudget(int budget);
 	StatusType AddBand(int bandID, int price);
 	StatusType RemoveBand(int bandID);
+	StatusType AddVotes(int bandID, int numVotes);
 };
 
 #endif

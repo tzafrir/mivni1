@@ -131,7 +131,15 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->RemoveBand(42)
 	);
-	
+//	
+//	cout << endl << "AddVotes" << endl;
+//	
+//	expect(
+//		"bandID = -682",
+//		INVALID_INPUT,
+//		fest->AddVotes(-682, 1)
+//	);
+
 	
 	
 	
