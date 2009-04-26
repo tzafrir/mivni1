@@ -1,9 +1,14 @@
 #ifndef _FESTIVAL_H
 #define _FESTIVAL_H
 
+//#define avl
+
 #include "library1.h"
-//#include "avl.h"
+#ifdef avl
+#include "avl.h"
+#else
 #include "faketree.h"
+#endif
 
 #include "band.h"
 
@@ -13,12 +18,15 @@ class Festival {
 	int min_price;
 	int num_of_bands;
 	int sum_of_prices;
-//	AVL<Band, true> bands;
-//	AVL<BandByPrice, true> bands_by_price;
-//	AVL<BandByVotes, true> bands_by_votes;
+#ifdef avl
+	AVL<Band, true> bands;
+	AVL<BandByPrice, true> bands_by_price;
+	AVL<BandByVotes, true> bands_by_votes;
+#else
 	FakeTree<Band> bands;
 	FakeTree<BandByPrice> bands_by_price;
 	FakeTree<BandByVotes> bands_by_votes;
+#endif
 		public:
 	Festival(int budget) : budget(budget) {};
 	StatusType ChangeBudget(int budget);
