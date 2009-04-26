@@ -30,14 +30,19 @@ StatusType Festival::AddBand(int bandID, int price){
 		return ALLOCATION_ERROR;
 	}
 		
-	if (bands.insert(new_band) != SUCCESS) {
+	if (bands.insert(new_band) != SUCCESS) { // Band already exists, or other failure
 		delete new_band;
 		delete new_band_by_price;
 		delete new_band_by_votes;
 		return FAILURE;
 	}
-	bands_by_price.insert(new_band_by_price);
+	bands_by_price.insert(new_band_by_price); // Must succeed
 	bands_by_votes.insert(new_band_by_votes);
+	
+	if (price < min_price) {
+		min_price = price;
+	}
+	
 	return SUCCESS;
 }
 
@@ -75,9 +80,12 @@ StatusType Festival::AddVotes(int bandID, int numVotes) {
 	
 	the_band->votes += numVotes;
 	
-	BandByVotes* the_band_bv = new BandByVotes(the_band);
-	bands_by_votes.remove(the_band_bv); // Will never fail
-	bands_by_votes.insert(the_band_bv);
+	BandByVotes* bbv = new BandByVotes(the_band);
+	if (bbv == NULL) {
+		return ALLOCATION_ERROR;
+	}
+	bands_by_votes.remove(bbv); // Will never fail
+	bands_by_votes.insert(bbv);
 	return SUCCESS;
 }
 
@@ -91,7 +99,14 @@ StatusType Festival::ChangePrice(int bandID, int price) {
 		return FAILURE;
 	}
 	BandByPrice* bbp = new BandByPrice(the_band);
+	if (bbp == NULL) {
+		return ALLOCATION_ERROR;
+	}
 	BandByVotes* bbv = new BandByVotes(the_band);
+	if (bbv == NULL) {
+		delete bbp;
+		return ALLOCATION_ERROR;
+	}
 	// These are guaranteed to succeed:
 	bands_by_price.remove(bbp);
 	bands_by_votes.remove(bbv);
