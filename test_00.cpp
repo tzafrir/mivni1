@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
 	);
 	
 	expect(
-		"bandID = 2048",
+		"bandID = 2048, price = 1",
 		SUCCESS,
 		fest->AddBand(2048, 1)
 	);
@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
 		fest->AddBand(2048, -1023)
 	);
 	expect(
-		"bandID = 2048 (again)",
+		"bandID = 2048 (again), price = 10",
 		FAILURE,
 		fest->AddBand(2048, 10)
 	);
@@ -174,6 +174,48 @@ int main(int argc, char** argv) {
 		fest->ChangePrice(0, 500)
 	);
 	
+	cout << endl << "GetPrice" << endl;
+	int price;
+	
+	expect(
+		"bandID = -1",
+		INVALID_INPUT,
+		fest->GetPrice(-1, &price)
+	);
+	expect(
+		"price = NULL",
+		INVALID_INPUT,
+		fest->GetPrice(0, NULL)
+	);
+	expect(
+		"bandID = 93746",
+		FAILURE,
+		fest->GetPrice(93746, &price)
+	);
+	expect(
+		"bandID = 0",
+		SUCCESS,
+		fest->GetPrice(0, &price)
+	);
+	cout << "\t" << SPACES << price << endl;
+	expect(
+		"bandID = 2048",
+		SUCCESS,
+		fest->GetPrice(2048, &price)
+	);
+	cout << "\t" << SPACES << price << endl;
+	expect(
+		"ChangePrice 2048 to INT_MAX",
+		SUCCESS,
+		fest->ChangePrice(2048, INT_MAX)
+	);
+	expect(
+		"GetPrice 2048",
+		SUCCESS,
+		fest->GetPrice(2048, &price)
+	);
+	cout << "\t" << SPACES << price << endl;
+		
 	
 	delete fest;
 	

@@ -121,3 +121,16 @@ StatusType Festival::ChangePrice(int bandID, int price) {
 	bands_by_votes.insert(bbv);
 	return SUCCESS;
 }
+
+StatusType Festival::GetPrice(int bandID, int* price) {
+	if ((bandID < 0) || (price == NULL)) {
+		return INVALID_INPUT;
+	}
+	Band has_id(bandID, 0);
+	Band* the_band = bands.find(&has_id);
+	if (the_band == NULL) { // No cigar
+		return FAILURE;
+	}
+	*price = the_band->price;
+	return SUCCESS;
+}
