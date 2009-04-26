@@ -6,7 +6,7 @@ festival.o: festival.h band.h sortedlist.h library1.h faketree.h
 tests: ${TESTS}
 	./test_00
 	./test_01
-vg: $(TESTS)
+vg: test_00
 	valgrind --leak-check=full ./test_00 > /dev/null
 	valgrind --leak-check=full ./test_01 > /dev/null
 clean:
