@@ -8,7 +8,7 @@
 
 template <class T>
 class FakeTree {
-	SortedList<T> list;
+	SortedList<T*> list;
 		public:
 	~FakeTree() {
 		list.start();
@@ -17,7 +17,7 @@ class FakeTree {
 			list.next();
 		}
 	}
-	StatusType insert(T item) {
+	StatusType insert(T* item) {
 			list.start();
 			while(!list.end()) {
 				if (list.getCurrent() != NULL) {
@@ -33,7 +33,7 @@ class FakeTree {
 				return FAILURE;
 			}
 	}
-	StatusType remove(T item) { // TODO What does the real tree want here? Example?
+	StatusType remove(T* item) { // TODO What does the real tree want here? Example?
 		list.start();
 		while (!list.end()) {
 			if ((**list.getCurrent()) == *item) {
@@ -46,7 +46,7 @@ class FakeTree {
 		return FAILURE;
 	}
 	
-	T find(T key) {
+	T* find(T* key) {
 		list.start();
 		while (!list.end()) {
 			if ((**list.getCurrent()) == *key) {
