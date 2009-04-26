@@ -85,13 +85,18 @@ class BandByVotes {
 		}
 	}
 	bool operator<= (BandByVotes b) const {
+		// equals
+		if (this->band->band_id == b.band->band_id) {
+			return true;
+		}
+		// or less than
 		if (this->band->votes < b.band->votes) {
 			return true;
 		} else if (this->band->votes == b.band->votes) {
 			if (this->band->price < b.band->price) {
 				return true;
 			} else if (this->band->price == b.band->price) {
-				return this->band->band_id <= b.band->band_id;
+				return (this->band->band_id < b.band->band_id);
 			}
 		}
 		return false;
