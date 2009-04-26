@@ -91,7 +91,7 @@ public:
 			CmpResult res= Cmp(ptr->data,item);
 			if (res == Equal)
 			{
-				return root->data; //item found
+				return ptr->data; //item found
 			}
 			//else
 			directions dir = (directions) res; //bellow -> left, above -> right
