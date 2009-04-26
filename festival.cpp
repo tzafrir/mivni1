@@ -46,8 +46,12 @@ StatusType Festival::RemoveBand(int bandID) {
 		return INVALID_INPUT;
 	}
 	Band has_id(bandID, 0);
-	BandByPrice has_id_bp(&has_id);
-	BandByVotes has_id_bv(&has_id);
+	Band* the_band = bands.find(&has_id);
+	if (the_band == NULL) {
+		return FAILURE;
+	}
+	BandByPrice has_id_bp(the_band);
+	BandByVotes has_id_bv(the_band);
 	
 	if (bands_by_votes.remove(&has_id_bv) == SUCCESS) { 
 		bands_by_price.remove(&has_id_bp);
