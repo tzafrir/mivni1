@@ -56,6 +56,11 @@ class FakeTree {
 		}
 		return NULL;
 	}
+	
+	T* GetMin() {
+		list.start();
+		return *list.getCurrent();
+	}
 };
 
 #endif /* __FAKETREE_H__ */
