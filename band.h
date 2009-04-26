@@ -29,12 +29,14 @@ class Band {
 };
 
 class BandByPrice {
-	Band* band;
 		public:
+	Band* band;
 	BandByPrice(Band* new_band) : band(new_band) {};
 	bool operator< (BandByPrice b) const {
 		if (this->band->price < b.band->price) {
 			return true;
+		} else if (this->band->price > b.band->price) {
+			return false;
 		} else if (this->band->price == b.band->price) {
 			return (this->band->band_id < b.band->band_id);
 		}
@@ -43,7 +45,10 @@ class BandByPrice {
 	bool operator<= (BandByPrice b) const {
 		if (this->band->price < b.band->price) {
 			return true;
-		} else if (this->band->price == b.band->price) {
+		} else if (this->band->price > b.band->price) {
+			return false;
+		}
+		else if (this->band->price == b.band->price) {
 			return (this->band->band_id <= b.band->band_id);
 		}
 		return false;
@@ -51,6 +56,8 @@ class BandByPrice {
 	bool operator> (BandByPrice b) const {
 		if (this->band->price > b.band->price) {
 			return true;
+		} else if (this->band->price > b.band->price) {
+			return false;
 		} else if (this->band->price == b.band->price) {
 			return (this->band->band_id > b.band->band_id);
 		}
@@ -62,8 +69,8 @@ class BandByPrice {
 };
 
 class BandByVotes {
-	Band* band;
 		public:
+	Band* band;
 	BandByVotes(Band* new_band) : band(new_band) {};
 	bool operator< (BandByVotes b) const {
 		if (this->band->votes < b.band->votes) {
