@@ -41,7 +41,12 @@ class BandByPrice {
 		return false;
 	}
 	bool operator<= (BandByPrice b) const {
-		return ((*this < b) || (*this == b));
+		if (this->band->price < b.band->price) {
+			return true;
+		} else if (this->band->price == b.band->price) {
+			return (this->band->band_id < b.band->band_id);
+		}
+		return true;
 	}
 	bool operator> (BandByPrice b) const {
 		if (this->band->price > b.band->price) {
@@ -66,9 +71,11 @@ class BandByVotes {
 		} else if (this->band->votes == b.band->votes) {
 			if (this->band->price < b.band->price) {
 				return true;
-			} 
+			} else if (this->band->price == b.band->price) {
+				return (this->band->band_id < b.band->band_id);
+			}
 		}
-		return (this->band->band_id < b.band->band_id);
+		return false;
 	}
 	bool operator> (BandByVotes b) const {
 		if (*this == b) {
@@ -78,7 +85,14 @@ class BandByVotes {
 		}
 	}
 	bool operator<= (BandByVotes b) const {
-		return ((*this < b) || (*this == b));
+		if (this->band->votes < b.band->votes) {
+			return true;
+		} else if (this->band->votes == b.band->votes) {
+			if (this->band->price < b.band->price) {
+				return true;
+			} 
+		}
+
 	}
 	friend bool operator== (BandByVotes a, BandByVotes b) {
 		return (*a.band == *b.band);
