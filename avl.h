@@ -4,16 +4,20 @@
 #include <iostream>
 #include <cassert>
 
-template <typename T,bool FreeItems>
-class AVL{
-public:
-
-	enum AVLReturnCodes
+enum AVLReturnCodes
 	{	
 		Success,
 		Item_already_exist,
 		Item_doesnt_exist
 	};
+	
+	// FIXME: consult ilya about moving this out of the class
+
+template <typename T,bool FreeItems>
+class AVL{
+public:
+
+	
 
 	// A unary predicate class - used to preform operations on the items in the tree
 	// while traversal the tree
