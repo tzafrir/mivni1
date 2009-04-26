@@ -49,37 +49,37 @@ int main(){
 	BandByVotes B3(&B100);
 	BandByVotes B4(&B201);
 	
-	cout << "\tB1 <= B2                            ";
+	cout << "\tB1 <= B2                                ";
 	if (B1 <= B2) {
 		cout << OK;
 	} else {
 		cout << FAIL;
 	}
-	cout << "\tB1 <= B3 ";
+	cout << "\tB1 <= B3                                ";
 	if (B1 <= B3) {
 		cout << OK;
 	} else {
 		cout << FAIL;
 	}
-	cout << "\tB1 <= B3 ";
+	cout << "\tB1 <= B3                                ";
 	if (B1 <= B3) {
 		cout << OK;
 	} else {
 		cout << FAIL;
 	}
-	cout << "\tB1 <= B4 ";
+	cout << "\tB1 <= B4                                ";
 	if (B1 <= B4) {
 		cout << OK;
 	} else {
 		cout << FAIL;
 	}
-	cout << "\t!B4 <= B2 ";
+	cout << "\t!B4 <= B2                               ";
 	if (!(B4 <= B2)) {
 		cout << OK;
 	} else {
 		cout << FAIL;
 	}
-	cout << "\tB3 <= B2 ";
+	cout << "\tB3 <= B2                                ";
 	if (B3 <= B2) {
 		cout << OK;
 	} else {
