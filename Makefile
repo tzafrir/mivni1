@@ -8,6 +8,5 @@ tests: ${TESTS}
 	./test_01
 vg: test_00
 	valgrind --leak-check=full ./test_00 > /dev/null
-	valgrind --leak-check=full ./test_01 > /dev/null
 clean:
 	-rm test_00 test_01 *.o
