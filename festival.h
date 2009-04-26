@@ -28,7 +28,8 @@ class Festival {
 	FakeTree<BandByVotes> bands_by_votes;
 #endif
 		public:
-	Festival(int budget) : budget(budget) {};
+	Festival(int budget) : budget(budget), min_price(0), discount(0),
+		num_of_bands(0), sum_of_prices() {};
 	StatusType ChangeBudget(int budget);
 	StatusType AddBand(int bandID, int price);
 	StatusType RemoveBand(int bandID);
