@@ -14,7 +14,10 @@ StatusType Festival::AddBand(int bandID, int price){
 	if ((bandID < 0) || (price < 0)) {
 		return INVALID_INPUT;
 	}
-	Band* new_band = new Band(bandID, price);
+	
+	// Note: if we have a discount in effect, we add the band with a price
+	//       that matches that discount.
+	Band* new_band = new Band(bandID, price+discount);
 	if (new_band == NULL) {
 		return ALLOCATION_ERROR;
 	}
