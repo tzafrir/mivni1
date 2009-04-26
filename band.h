@@ -88,11 +88,13 @@ class BandByVotes {
 		if (this->band->votes < b.band->votes) {
 			return true;
 		} else if (this->band->votes == b.band->votes) {
-			if (this->band->price <= b.band->price) {
+			if (this->band->price < b.band->price) {
 				return true;
-			} 
+			} else if (this->band->price == b.band->price) {
+				return this->band->band_id <= b.band->band_id;
+			}
 		}
-
+		return false;
 	}
 	friend bool operator== (BandByVotes a, BandByVotes b) {
 		return (*a.band == *b.band);
