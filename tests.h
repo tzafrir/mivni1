@@ -5,6 +5,10 @@
 #include <iostream>
 #include "library1.h"
 
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define WHITE "\033[0m"
+
 #define SPACES "                                        "
 
 using namespace std;
