@@ -5,6 +5,8 @@
 #include <iostream>
 #include "library1.h"
 
+#define SPACES "                                        "
+
 using namespace std;
 
 string stat2str(StatusType stat) {
