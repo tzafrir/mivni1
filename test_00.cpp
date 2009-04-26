@@ -57,6 +57,7 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->AddBand(2048, 1)
 	);
+	cout << "\t" << SPACES << (fest->_min_price() == 1 ? GREEN : RED) << fest->_min_price() << WHITE << endl;
 	expect(
 		"bandID = -1",
 		INVALID_INPUT,
@@ -215,7 +216,46 @@ int main(int argc, char** argv) {
 		fest->GetPrice(2048, &price)
 	);
 	cout << "\t" << SPACES << price << endl;
-		
+	
+	cout << endl << "ChangeAllPrices" << endl;
+	cout << "\tExpecting min_price to be 500" << endl;
+	cout << "\t" << SPACES << (fest->_min_price() == 500 ? GREEN : RED) << fest->_min_price() << WHITE << endl;
+	expect(
+		"discount = 0",
+		INVALID_INPUT,
+		fest->ChangeAllPrices(0)
+	);
+	expect(
+		"discount = 501 (makes 0 illegal)",
+		FAILURE,
+		fest->ChangeAllPrices(501)
+	);
+	expect(
+		"Change 2048 to have price 128",
+		SUCCESS,
+		fest->ChangePrice(2048, 128)
+	);
+	expect(
+		"discount = 2",
+		SUCCESS,
+		fest->ChangeAllPrices(2)
+	);
+	expect(
+		"GetPrice from 2048 should show 126",
+		SUCCESS,
+		fest->GetPrice(2048, &price)
+	);
+	cout << "\t" << SPACES << (price == 126 ? GREEN : RED) << price << WHITE << endl;
+	cout << "\tExpecting min_price to be 126" << endl;
+	cout << "\t" << SPACES << (fest->_min_price() == 126 ? GREEN : RED) << fest->_min_price() << WHITE << endl;
+	expect(
+		"discount = 127, should fail",
+		FAILURE,
+		fest->ChangeAllPrices(127)
+	);
+	
+	
+	
 	
 	delete fest;
 	

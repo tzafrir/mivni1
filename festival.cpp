@@ -119,6 +119,23 @@ StatusType Festival::ChangePrice(int bandID, int price) {
 	
 	bands_by_price.insert(bbp);
 	bands_by_votes.insert(bbv);
+	
+	min_price = bands_by_price.GetMin()->band->price - discount;
+	
+	return SUCCESS;
+}
+
+StatusType Festival::ChangeAllPrices(int discount) {
+	if (discount <= 0) {
+		return INVALID_INPUT;
+	}
+	
+	if (discount > min_price) {
+		return FAILURE;
+	}
+	
+	this->discount += discount;
+	min_price -= discount;
 	return SUCCESS;
 }
 
@@ -131,6 +148,7 @@ StatusType Festival::GetPrice(int bandID, int* price) {
 	if (the_band == NULL) { // No cigar
 		return FAILURE;
 	}
-	*price = the_band->price;
+	*price = the_band->price - discount;
 	return SUCCESS;
 }
+
