@@ -27,11 +27,9 @@ StatusType Festival::AddBand(int bandID, int price){
 	BandByVotes* new_band_by_votes = new BandByVotes(new_band);
 	if (new_band_by_votes == NULL) {
 		delete new_band;
-		delete new_band_by_price; // This function's length is O(num of new objects)
+		delete new_band_by_price;
 		return ALLOCATION_ERROR;
 	}
-	
-	// Fa
 		
 	if (bands.insert(new_band) != SUCCESS) {
 		delete new_band;
