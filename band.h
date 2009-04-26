@@ -1,6 +1,10 @@
 #ifndef _BAND_H
 #define _BAND_H
 
+
+
+// FIXME TODO TODO FIXME clean up the operators
+
 class Band {
 		public:
 	int band_id;
@@ -10,10 +14,13 @@ class Band {
 	Band(int bandID, int price, int votes=0)
 		: band_id(bandID), price(price), votes(votes) {};
 	
-	bool operator< (Band b) {
+	bool operator< (Band b) const {
 		return (this->band_id < b.band_id);
 	}
-	bool operator> (Band b) {
+	bool operator<= (Band b) const {
+		return (this->band_id <= b.band_id);
+	}
+	bool operator> (Band b) const {
 		return (this->band_id > b.band_id);
 	}
 	friend bool operator== (Band a, Band b) {
@@ -25,7 +32,7 @@ class BandByPrice {
 	Band* band;
 		public:
 	BandByPrice(Band* new_band) : band(new_band) {};
-	bool operator< (BandByPrice b) {
+	bool operator< (BandByPrice b) const {
 		if (this->band->price < b.band->price) {
 			return true;
 		} else if (this->band->price == b.band->price) {
@@ -33,7 +40,10 @@ class BandByPrice {
 		}
 		return false;
 	}
-	bool operator> (BandByPrice b) {
+	bool operator<= (BandByPrice b) const {
+		return ((*this < b) || (*this == b));
+	}
+	bool operator> (BandByPrice b) const {
 		if (this->band->price > b.band->price) {
 			return true;
 		} else if (this->band->price == b.band->price) {
@@ -50,7 +60,7 @@ class BandByVotes {
 	Band* band;
 		public:
 	BandByVotes(Band* new_band) : band(new_band) {};
-	bool operator< (BandByVotes b) {
+	bool operator< (BandByVotes b) const {
 		if (this->band->votes < b.band->votes) {
 			return true;
 		} else if (this->band->votes == b.band->votes) {
@@ -60,12 +70,15 @@ class BandByVotes {
 		}
 		return (this->band->band_id < b.band->band_id);
 	}
-	bool operator> (BandByVotes b) {
+	bool operator> (BandByVotes b) const {
 		if (*this == b) {
 			return false;
 		} else {
 			return !(*this < b);
 		}
+	}
+	bool operator<= (BandByVotes b) const {
+		return ((*this < b) || (*this == b));
 	}
 	friend bool operator== (BandByVotes a, BandByVotes b) {
 		return (*a.band == *b.band);
