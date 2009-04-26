@@ -81,3 +81,24 @@ StatusType Festival::AddVotes(int bandID, int numVotes) {
 	return SUCCESS;
 }
 
+StatusType Festival::ChangePrice(int bandID, int price) {
+	if ((bandID < 0) || (price <= 0)) {
+		return INVALID_INPUT;
+	}
+	Band has_id(bandID, 0);
+	Band* the_band = bands.find(&has_id);
+	if (the_band == NULL) {
+		return FAILURE;
+	}
+	BandByPrice* bbp = new BandByPrice(the_band);
+	BandByVotes* bbv = new BandByVotes(the_band);
+	// These are guaranteed to succeed:
+	bands_by_price.remove(bbp);
+	bands_by_votes.remove(bbv);
+	
+	the_band->price = price;
+	
+	bands_by_price.insert(bbp);
+	bands_by_votes.insert(bbv);
+	return SUCCESS;
+}

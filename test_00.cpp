@@ -145,7 +145,35 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->AddVotes(0, 1)
 	);
-		
+	
+	cout << endl << "ChangePrice" << endl;
+	
+	expect(
+		"bandID = -1",
+		INVALID_INPUT,
+		fest->ChangePrice(-1, 12)
+	);
+	expect(
+		"price = -1",
+		INVALID_INPUT,
+		fest->ChangePrice(2, -1)
+	);
+	expect(
+		"bandID = 509",
+		FAILURE,
+		fest->ChangePrice(509,12)
+	);
+	expect(
+		"bandID = 42",
+		FAILURE,
+		fest->ChangePrice(42, 12)
+	);
+	expect(
+		"bandID = 0, price = 500",
+		SUCCESS,
+		fest->ChangePrice(0, 500)
+	);
+	
 	
 	delete fest;
 	
