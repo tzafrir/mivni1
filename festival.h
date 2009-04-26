@@ -2,6 +2,7 @@
 #define _FESTIVAL_H
 
 #include "library1.h"
+//#include "avl.h"
 #include "faketree.h"
 
 #include "band.h"
@@ -12,6 +13,9 @@ class Festival {
 	int min_price;
 	int num_of_bands;
 	int sum_of_prices;
+//	AVL<Band, true> bands;
+//	AVL<BandByPrice, true> bands_by_price;
+//	AVL<BandByVotes, true> bands_by_votes;
 	FakeTree<Band> bands;
 	FakeTree<BandByPrice> bands_by_price;
 	FakeTree<BandByVotes> bands_by_votes;

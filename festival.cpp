@@ -1,7 +1,6 @@
 #include "festival.h"
 #include "band.h"
 
-#define NULL 0
 
 StatusType Festival::ChangeBudget(int budget) {
 	if (budget < 0) {
