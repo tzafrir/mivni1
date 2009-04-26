@@ -114,7 +114,8 @@ StatusType Festival::ChangePrice(int bandID, int price) {
 	bands_by_price.remove(bbp);
 	bands_by_votes.remove(bbv);
 	
-	the_band->price = price;
+	// Include discount value when modifying the price
+	the_band->price = price+discount;
 	
 	bands_by_price.insert(bbp);
 	bands_by_votes.insert(bbv);
