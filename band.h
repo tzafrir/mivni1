@@ -2,9 +2,6 @@
 #define _BAND_H
 
 
-
-// FIXME TODO TODO FIXME clean up the operators
-
 class Band {
 		public:
 	int band_id;
@@ -13,18 +10,8 @@ class Band {
 	
 	Band(int bandID, int price, int votes=0)
 		: band_id(bandID), price(price), votes(votes) {};
-	
-	bool operator< (Band b) const {
-		return (this->band_id < b.band_id);
-	}
 	bool operator<= (Band b) const {
 		return (this->band_id <= b.band_id);
-	}
-	bool operator> (Band b) const {
-		return (this->band_id > b.band_id);
-	}
-	friend bool operator== (Band a, Band b) {
-		return (a.band_id == b.band_id);
 	}
 };
 
@@ -32,39 +19,17 @@ class BandByPrice {
 		public:
 	Band* band;
 	BandByPrice(Band* new_band) : band(new_band) {};
-	bool operator< (BandByPrice b) const {
+	bool operator<= (BandByPrice b) const {		
 		if (this->band->price < b.band->price) {
 			return true;
-		} else if (this->band->price > b.band->price) {
-			return false;
 		} else if (this->band->price == b.band->price) {
-			return (this->band->band_id < b.band->band_id);
+			if (this->band->band_id < b.band->band_id) {
+				return true;
+			} else if (this->band->band_id == b.band->band_id) {			
+				return true;
+			}
 		}
 		return false;
-	}
-	bool operator<= (BandByPrice b) const {
-		if (this->band->price < b.band->price) {
-			return true;
-		} else if (this->band->price > b.band->price) {
-			return false;
-		}
-		else if (this->band->price == b.band->price) {
-			return (this->band->band_id <= b.band->band_id);
-		}
-		return false;
-	}
-	bool operator> (BandByPrice b) const {
-		if (this->band->price > b.band->price) {
-			return true;
-		} else if (this->band->price > b.band->price) {
-			return false;
-		} else if (this->band->price == b.band->price) {
-			return (this->band->band_id > b.band->band_id);
-		}
-		return false;
-	}
-	friend bool operator== (BandByPrice a, BandByPrice b) {
-		return (*a.band == *b.band);
 	}
 };
 
@@ -72,44 +37,21 @@ class BandByVotes {
 		public:
 	Band* band;
 	BandByVotes(Band* new_band) : band(new_band) {};
-	bool operator< (BandByVotes b) const {
-		if (this->band->votes < b.band->votes) {
-			return true;
-		} else if (this->band->votes == b.band->votes) {
-			if (this->band->price < b.band->price) {
-				return true;
-			} else if (this->band->price == b.band->price) {
-				return (this->band->band_id < b.band->band_id);
-			}
-		}
-		return false;
-	}
-	bool operator> (BandByVotes b) const {
-		if (*this == b) {
-			return false;
-		} else {
-			return !(*this < b);
-		}
-	}
+
 	bool operator<= (BandByVotes b) const {
-		// equals
-		if (this->band->band_id == b.band->band_id) {
-			return true;
-		}
-		// or less than
-		if (this->band->votes < b.band->votes) {
+		// Order is defined so that the first is the one with most votes
+		if (this->band->votes > b.band->votes) {
 			return true;
 		} else if (this->band->votes == b.band->votes) {
+			// Then cheapest
 			if (this->band->price < b.band->price) {
 				return true;
 			} else if (this->band->price == b.band->price) {
-				return (this->band->band_id < b.band->band_id);
+				// Then larger bandID
+				return (this->band->band_id >= b.band->band_id);
 			}
 		}
 		return false;
-	}
-	friend bool operator== (BandByVotes a, BandByVotes b) {
-		return (*a.band == *b.band);
 	}
 };
 
