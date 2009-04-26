@@ -83,7 +83,7 @@ public:
 	// retrives an item from the tree, the argument
 	// should be an item which is equal to the item
 	// to remove according to the <= function
-	T* Find(T *item) const
+	T* find(T *item) const
 	{
 		node* ptr = root;
 		while  (ptr != NULL)
