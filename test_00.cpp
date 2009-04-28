@@ -419,7 +419,7 @@ int main(int argc, char** argv) {
 	expect(
 		"10 votes",
 		SUCCESS,
-		fest->AddVotes(1, 10) // this caused a very weird bug when it was 300
+		fest->AddVotes(1, 10)
 	);
 	expect(
 		"Add 2, 200",

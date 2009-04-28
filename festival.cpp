@@ -1,10 +1,6 @@
 #include "festival.h"
 #include "band.h"
 
-#include <iostream> // FIXME TODO remove this
-
-using namespace std;
-
 StatusType Festival::ChangeBudget(int budget) {
 	if (budget < 0) {
 		return INVALID_INPUT;
@@ -92,13 +88,12 @@ StatusType Festival::AddVotes(int bandID, int numVotes) {
 		return FAILURE;
 	}
 	
-	the_band->votes += numVotes;
-	
 	BandByVotes* bbv = new BandByVotes(the_band);
 	if (bbv == NULL) {
 		return ALLOCATION_ERROR;
 	}
 	bands_by_votes.remove(bbv); // Will never fail
+	the_band->votes += numVotes;
 	bands_by_votes.insert(bbv);
 	return SUCCESS;
 }
@@ -204,15 +199,13 @@ StatusType Festival::BandList(int** bandList, int* size) {
 bool Festival::GetBands::DoWork(BandByVotes* b) {
 	if ((b->band->price - discount) <= budget) {
 		budget -= b->band->price;
-		*bandList[i] = b->band->band_id;
+		(*bandList)[i] = b->band->band_id;
 		i++;
 	}
 	return false;
 }
 
 bool Festival::CountBands::DoWork(BandByVotes* b) {
-//DEBUG:
-	cout << "Band: " << b->band->band_id << "; Budget: " << budget << "; Price: " << b->band->price << "; Discount: " << discount << endl;
 	if ((b->band->price - discount) <= budget) {
 		budget -= b->band->price;
 		count++;
