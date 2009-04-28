@@ -33,7 +33,7 @@ StatusType Festival::AddBand(int bandID, int price){
 		return ALLOCATION_ERROR;
 	}
 		
-	if (ConvertStatus(bands.insert(new_band)) != SUCCESS) { // Band already exists, or other failure
+	if (bands.insert(new_band) != bands.Success) { // Band already exists, or other failure
 		delete new_band;
 		delete new_band_by_price;
 		delete new_band_by_votes;
@@ -64,7 +64,7 @@ StatusType Festival::RemoveBand(int bandID) {
 	BandByPrice has_id_bp(the_band);
 	BandByVotes has_id_bv(the_band);
 	
-	if (ConvertStatus(bands_by_votes.remove(&has_id_bv)) == SUCCESS) { 
+	if (bands_by_votes.remove(&has_id_bv) == bands_by_votes.Success) { 
 		bands_by_price.remove(&has_id_bp);
 		
 		num_of_bands--;

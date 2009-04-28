@@ -18,15 +18,7 @@ class Festival {
 	AVL<Band, true> bands;
 	AVL<BandByPrice, true> bands_by_price;
 	AVL<BandByVotes, true> bands_by_votes;
-	StatusType ConvertStatus(AVLReturnCodes code) { // Helper function to receive statuses
-		switch (code) {
-			case Success : return SUCCESS;
-			case Item_already_exist : return FAILURE;
-			case Item_doesnt_exist : return FAILURE;
-		}
-		return FAILURE;
-	}
-	
+
 		public:
 	int _min_price() { return min_price; } // FIXME this shouldn't be here TODO
 	Festival(int budget) : budget(budget), discount(0), min_price(INT_MAX), //FIXME
