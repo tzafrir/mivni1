@@ -281,11 +281,12 @@ int main(int argc, char** argv) {
 		FAILURE,
 		fest->MaxNeededBudget(&price)
 	);
-	// expect(
-		// "and BandList.",
-		// FAILURE,
-		// fest->BandList()
-	// );
+	int *i, j;
+	expect(
+		"and BandList.",
+		FAILURE,
+		fest->BandList(&i, &j)
+	);
 	
 
 	cout << endl << "MaxNeededBudget" << endl;
