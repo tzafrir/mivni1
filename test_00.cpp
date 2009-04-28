@@ -253,6 +253,18 @@ int main(int argc, char** argv) {
 		FAILURE,
 		fest->ChangeAllPrices(127)
 	);
+	expect(
+		"Remove 2048, min_price should be 498",
+		SUCCESS,
+		fest->RemoveBand(2048)
+	);
+	cout << "\t" << SPACES << (fest->_min_price() == 498 ? GREEN : RED) << fest->_min_price() << WHITE << endl;
+	expect(
+		"Add 5 with price 1, should be min_price",
+		SUCCESS,
+		fest->AddBand(5,1)
+	);
+	cout << "\t" << SPACES << (fest->_min_price() == 1 ? GREEN : RED) << fest->_min_price() << WHITE << endl;
 	
 	cout << endl << "Clean slate: deleting fest and making a new one" << endl;	
 	
@@ -264,11 +276,11 @@ int main(int argc, char** argv) {
 		FAILURE,
 		fest->ChangeAllPrices(1)
 	);
-	// expect(
-		// "and MaxNeededBudget",
-		// FAILURE,
-		// fest->MaxNeededBuget()
-	//);
+	expect(
+		"and MaxNeededBudget",
+		FAILURE,
+		fest->MaxNeededBudget(&price)
+	);
 	// expect(
 		// "and BandList.",
 		// FAILURE,
