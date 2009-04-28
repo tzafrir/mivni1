@@ -130,6 +130,10 @@ StatusType Festival::ChangeAllPrices(int discount) {
 		return INVALID_INPUT;
 	}
 	
+	if (bands.NumberOfItems() == 0) {
+		return FAILURE;
+	}
+	
 	if (discount > min_price) {
 		return FAILURE;
 	}

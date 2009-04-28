@@ -258,6 +258,23 @@ int main(int argc, char** argv) {
 	
 	delete fest;
 	
+	fest = new Festival(400);
+	expect(
+		"Expecting FAILURE on ChangeAllPrices",
+		FAILURE,
+		fest->ChangeAllPrices(1)
+	);
+	// expect(
+		// "and MaxNeededBudget",
+		// FAILURE,
+		// fest->MaxNeededBuget()
+	//);
+	// expect(
+		// "and BandList.",
+		// FAILURE,
+		// fest->BandList()
+	// );
+	
 	fest = new Festival(300);
 	expect(
 		"Add 0, 100",
@@ -289,6 +306,7 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->AddVotes(2,5)
 	);
+	
 //	int* bandList;
 //	int size;
 //	expect(
