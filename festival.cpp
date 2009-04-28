@@ -1,6 +1,9 @@
 #include "festival.h"
 #include "band.h"
 
+#include <iostream> // FIXME TODO remove this
+
+using namespace std;
 
 StatusType Festival::ChangeBudget(int budget) {
 	if (budget < 0) {
@@ -141,7 +144,7 @@ StatusType Festival::ChangeAllPrices(int discount) {
 		return INVALID_INPUT;
 	}
 	
-	if (bands.NumberOfItems() == 0) {
+	if (num_of_bands == 0) {
 		return FAILURE;
 	}
 	
@@ -172,10 +175,47 @@ StatusType Festival::MaxNeededBudget(int* maxBudget) {
 		return INVALID_INPUT;
 	}
 	
-	if (bands.NumberOfItems() == 0) {
+	if (num_of_bands == 0) {
 		return FAILURE;
 	}
 	
 	*maxBudget = sum_of_prices - (num_of_bands * discount);
 	return SUCCESS;
+}
+
+StatusType Festival::BandList(int** bandList, int* size) {
+	if ((bandList == NULL) || (size == NULL)) {
+		return INVALID_INPUT;
+	}
+	if (num_of_bands == 0) {
+		return FAILURE;
+	}
+	CountBands counter(budget, discount);
+	bands_by_votes.inorder(&counter);
+	
+	*size = counter.count;
+	
+	*bandList = new int[counter.count];
+	GetBands getter(bandList, budget, discount);
+	bands_by_votes.inorder(&getter);
+	return SUCCESS;
+}
+
+bool Festival::GetBands::DoWork(BandByVotes* b) {
+	if ((b->band->price - discount) <= budget) {
+		budget -= b->band->price;
+		*bandList[i] = b->band->band_id;
+		i++;
+	}
+	return false;
+}
+
+bool Festival::CountBands::DoWork(BandByVotes* b) {
+//DEBUG:
+	cout << "Band: " << b->band->band_id << "; Budget: " << budget << "; Price: " << b->band->price << "; Discount: " << discount << endl;
+	if ((b->band->price - discount) <= budget) {
+		budget -= b->band->price;
+		count++;
+	}
+	return false;
 }

@@ -305,29 +305,14 @@ int main(int argc, char** argv) {
 		fest->AddBand(0, 100)
 	);
 	expect(
-		"20 votes for 0",
-		SUCCESS,
-		fest->AddVotes(0, 20)
-	);
-	expect(
 		"Add 1, 300",
 		SUCCESS,
 		fest->AddBand(1, 300)
 	);
 	expect(
-		"10 votes",
-		SUCCESS,
-		fest->AddVotes(1, 300)
-	);
-	expect(
 		"Add 2, 200",
 		SUCCESS,
 		fest->AddBand(2, 200)
-	);
-	expect(
-		"5 votes",
-		SUCCESS,
-		fest->AddVotes(2,5)
 	);
 	int maxbudget;
 	expect(
@@ -412,31 +397,63 @@ int main(int argc, char** argv) {
 		fest->MaxNeededBudget(&maxbudget)
 	);
 	cout << "\t" << SPACES << (maxbudget == 3000 ? GREEN : RED) << maxbudget << WHITE << endl;
+	cout << endl << "Clean slate: deleting fest and making a new one" << endl;	
 	
-	
-//	int* bandList;
-//	int size;
-//	expect(
-//		"bandList = NULL",
-//		INVALID_INPUT,
-//		fest->BandList(NULL, &size)
-//	);
-//	expect(
-//		"size = NULL",
-//		INVALID_INPUT,
-//		fest->BandList(&bandList, NULL)
-//	);
-//	expect(
-//		"BandList",
-//		SUCCESS,
-//		fest->BandList(&bandList, &size)
-//	);
-//	cout << "Expecting size = 2" << endl;
-//	cout << "\t" << SPACES << (size == 2 ? GREEN : RED)
-//		<< size << WHITE << endl;
-//	for (int i = 0; i < size; i++) {
-//		cout << bandList[i] << " ";
-//	}
+	delete fest;	
+	fest = new Festival(300);
+	expect(
+		"Add 0, 100",
+		SUCCESS,
+		fest->AddBand(0, 100)
+	);
+	expect(
+		"20 votes for 0",
+		SUCCESS,
+		fest->AddVotes(0, 20)
+	);
+	expect(
+		"Add 1, 300",
+		SUCCESS,
+		fest->AddBand(1, 300)
+	);
+	expect(
+		"10 votes",
+		SUCCESS,
+		fest->AddVotes(1, 10)
+	);
+	expect(
+		"Add 2, 200",
+		SUCCESS,
+		fest->AddBand(2, 200)
+	);
+	expect(
+		"5 votes",
+		SUCCESS,
+		fest->AddVotes(2,5)
+	);
+	int* bandList;
+	int size;
+	expect(
+		"bandList = NULL",
+		INVALID_INPUT,
+		fest->BandList(NULL, &size)
+	);
+	expect(
+		"size = NULL",
+		INVALID_INPUT,
+		fest->BandList(&bandList, NULL)
+	);
+	expect(
+		"BandList",
+		SUCCESS,
+		fest->BandList(&bandList, &size)
+	);
+	cout << "Expecting size = 2" << endl;
+	cout << "\t" << SPACES << (size == 2 ? GREEN : RED)
+		<< size << WHITE << endl;
+	for (int i = 0; i < size; i++) {
+		cout << bandList[i] << " ";
+	}
 	cout << endl;
 	
 	return 0;

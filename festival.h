@@ -18,6 +18,24 @@ class Festival {
 	AVL<Band, true> bands;
 	AVL<BandByPrice, true> bands_by_price;
 	AVL<BandByVotes, true> bands_by_votes;
+	class GetBands : public AVL<BandByVotes,true>::Predicate {
+		int** bandList;
+		int i;
+		int budget;
+		int discount;
+			public:
+		GetBands(int** bandList, int budget, int discount) : bandList(bandList), i(0), budget(budget), discount(discount) {} ;
+		bool DoWork(BandByVotes* b);
+	};
+	class CountBands : public AVL<BandByVotes,true>::Predicate {
+		int budget;
+		int discount;
+			public:
+		int count;
+		CountBands(int budget, int discount) : budget(budget), discount(discount), count(0) {} ;
+		bool DoWork(BandByVotes* b);
+	};
+	
 
 		public:
 	int _min_price() { return min_price; } // FIXME this shouldn't be here TODO
@@ -30,8 +48,8 @@ class Festival {
 	StatusType ChangePrice(int bandID, int price);
 	StatusType ChangeAllPrices(int discount);
 	StatusType GetPrice(int bandID, int* price);
-	StatusType BandList(int** bandList, int* size);
 	StatusType MaxNeededBudget(int* maxBudget);
+	StatusType BandList(int** bandList, int* size);
 };
 
 #endif
