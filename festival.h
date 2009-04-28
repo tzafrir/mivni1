@@ -22,7 +22,7 @@ class Festival {
 		public:
 	int _min_price() { return min_price; } // FIXME this shouldn't be here TODO
 	Festival(int budget) : budget(budget), discount(0), min_price(INT_MAX), //FIXME
-		num_of_bands(0), sum_of_prices() {};
+		num_of_bands(0), sum_of_prices(0) {};
 	StatusType ChangeBudget(int budget);
 	StatusType AddBand(int bandID, int price);
 	StatusType RemoveBand(int bandID);
