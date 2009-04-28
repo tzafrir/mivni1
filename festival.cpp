@@ -46,6 +46,9 @@ StatusType Festival::AddBand(int bandID, int price){
 		min_price = price;
 	}
 	
+	num_of_bands++;
+	sum_of_prices += (price+discount); // Again, normalizing the previous discount value;
+	
 	return SUCCESS;
 }
 
@@ -63,6 +66,11 @@ StatusType Festival::RemoveBand(int bandID) {
 	
 	if (ConvertStatus(bands_by_votes.remove(&has_id_bv)) == SUCCESS) { 
 		bands_by_price.remove(&has_id_bp);
+		
+		num_of_bands--;
+		sum_of_prices -= the_band->price;
+		min_price = bands_by_price.GetMin()->band->price - discount;
+		
 		bands.remove(&has_id); // This must be done last,
 							   // the other trees depend on it
 		return SUCCESS;
@@ -114,13 +122,16 @@ StatusType Festival::ChangePrice(int bandID, int price) {
 	bands_by_price.remove(bbp);
 	bands_by_votes.remove(bbv);
 	
-	// Include discount value when modifying the price
+	sum_of_prices += price + discount - ( the_band->price); // Reduce old price, add new price
+	
+	// Include discount value when modifying the price	
 	the_band->price = price+discount;
 	
 	bands_by_price.insert(bbp);
 	bands_by_votes.insert(bbv);
 	
 	min_price = bands_by_price.GetMin()->band->price - discount;
+	
 	
 	return SUCCESS;
 }
@@ -156,3 +167,15 @@ StatusType Festival::GetPrice(int bandID, int* price) {
 	return SUCCESS;
 }
 
+StatusType Festival::MaxNeededBudget(int* maxBudget) {
+	if (maxBudget == NULL) {
+		return INVALID_INPUT;
+	}
+	
+	if (bands.NumberOfItems() == 0) {
+		return FAILURE;
+	}
+	
+	*maxBudget = sum_of_prices - (num_of_bands * discount);
+	return SUCCESS;
+}

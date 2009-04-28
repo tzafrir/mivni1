@@ -39,6 +39,7 @@ class Festival {
 	StatusType ChangeAllPrices(int discount);
 	StatusType GetPrice(int bandID, int* price);
 	StatusType BandList(int** bandList, int* size);
+	StatusType MaxNeededBudget(int* maxBudget);
 };
 
 #endif

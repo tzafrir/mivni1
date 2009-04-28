@@ -275,6 +275,17 @@ int main(int argc, char** argv) {
 		// fest->BandList()
 	// );
 	
+
+	cout << endl << "MaxNeededBudget" << endl;
+	
+	expect(
+		"maxBudget = NULL",
+		INVALID_INPUT,
+		fest->MaxNeededBudget(NULL)
+	);
+
+	
+	delete fest;
 	fest = new Festival(300);
 	expect(
 		"Add 0, 100",
@@ -306,6 +317,90 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->AddVotes(2,5)
 	);
+	int maxbudget;
+	expect(
+		"MaxNeededBudget should be 600",
+		SUCCESS,
+		fest->MaxNeededBudget(&maxbudget)
+	);
+	cout << "\t" << SPACES << (maxbudget == 600 ? GREEN : RED) << maxbudget << WHITE << endl;
+	expect(
+		"Discounting 50",
+		SUCCESS,
+		fest->ChangeAllPrices(50)
+	);
+	expect(
+		"Expecting MaxNeededBudget to be 450",
+		SUCCESS,
+		fest->MaxNeededBudget(&maxbudget)
+	);
+	cout << "\t" << SPACES << (maxbudget == 450 ? GREEN : RED) << maxbudget << WHITE << endl;
+	expect(
+		"Add 3, 100",
+		SUCCESS,
+		fest->AddBand(3, 100)
+	);
+	expect(
+		"Expecting MaxNeededBudget to be 550",
+		SUCCESS,
+		fest->MaxNeededBudget(&maxbudget)
+	);
+	cout << "\t" << SPACES << (maxbudget == 550 ? GREEN : RED) << maxbudget << WHITE << endl;
+	expect(
+		"Discounting 50",
+		SUCCESS,
+		fest->ChangeAllPrices(50)
+	);
+	expect(
+		"Expecting MaxNeededBudget to be 350",
+		SUCCESS,
+		fest->MaxNeededBudget(&maxbudget)
+	);
+	cout << "\t" << SPACES << (maxbudget == 350 ? GREEN : RED) << maxbudget << WHITE << endl;
+	expect(
+		"Remove 1",
+		SUCCESS,
+		fest->RemoveBand(1)
+	);
+	expect(
+		"Expecting MaxNeededBudget to be 150",
+		SUCCESS,
+		fest->MaxNeededBudget(&maxbudget)
+	);
+	cout << "\t" << SPACES << (maxbudget == 150 ? GREEN : RED) << maxbudget << WHITE << endl;
+	expect(
+		"Add 1, 850",
+		SUCCESS,
+		fest->AddBand(1, 850)
+	);
+	expect(
+		"Expecting MaxNeededBudget to be 1000",
+		SUCCESS,
+		fest->MaxNeededBudget(&maxbudget)
+	);
+	cout << "\t" << SPACES << (maxbudget == 1000 ? GREEN : RED) << maxbudget << WHITE << endl;
+	expect(
+		"ChangePrice 0 to 1000",
+		SUCCESS,
+		fest->ChangePrice(0, 1000)
+	);
+	expect(
+		"Expecting MaxNeededBudget to be 2000",
+		SUCCESS,
+		fest->MaxNeededBudget(&maxbudget)
+	);
+	expect(
+		"ChangePrice 0 to 2000",
+		SUCCESS,
+		fest->ChangePrice(0, 2000)
+	);
+	expect(
+		"Expecting MaxNeededBudget to be 3000",
+		SUCCESS,
+		fest->MaxNeededBudget(&maxbudget)
+	);
+	cout << "\t" << SPACES << (maxbudget == 3000 ? GREEN : RED) << maxbudget << WHITE << endl;
+	
 	
 //	int* bandList;
 //	int size;
