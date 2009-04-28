@@ -126,7 +126,7 @@ int main(int argc, const char**argv) {
       break;
   };
   return 0;
-};
+}
 
 /***************************************************************************/
 /* Command Checker                                                         */
@@ -147,7 +147,7 @@ static commandType CheckCommand(const char* const command, const char** const co
     };
   };
   return(NONE_CMD);
-};
+}
 
 /***************************************************************************/
 /* Commands Functions                                                      */
@@ -198,7 +198,7 @@ static errorType parser(const char* const command) {
 	default: assert(false);
   };
   return(rtn_val);
-};
+}
 
 
 

@@ -10,3 +10,4 @@ vg: test_00
 	valgrind --leak-check=full ./test_00 > /dev/null
 clean:
 	-rm test_00 test_01 *.o
+main1: main1.cpp library1.o festival.o
