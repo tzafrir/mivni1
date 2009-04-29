@@ -27,7 +27,7 @@ public:
 
 	~AVL() 
 	{
-		free(root);
+		Destroy(root);
 	}
 
 	// returns the number of items in the tree
@@ -67,6 +67,7 @@ public:
 	// notice: if you want to change an item in a way that effects how
 	// it compares to other items, you should remove it from the tree
 	// make the change and reinsert it.
+	// Warning: might throw std::bad_alloc
 	AVLReturnCodes insert(T *item)
 	{
 		return insert(root, item) != Error ?  Success : Item_already_exist;
@@ -400,12 +401,12 @@ private:
 	}
 
 	//internal free function
-	static void free(node* root)
+	static void Destroy(node* root)
 	{
 		if (root != NULL)
 		{
-			free(root->Children[Left]);
-			free(root->Children[Right]);
+			Destroy(root->Children[Left]);
+			Destroy(root->Children[Right]);
 			if (FreeItems)
 			{
 				delete root->data;
