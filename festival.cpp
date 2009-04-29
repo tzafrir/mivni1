@@ -41,7 +41,7 @@ StatusType Festival::AddBand(int bandID, int price){
 	bands_by_price.insert(new_band_by_price); // Must succeed
 	bands_by_votes.insert(new_band_by_votes);
 	
-	if (price < min_price) {
+	if ((price < min_price) || (num_of_bands == 0)) {
 		min_price = price;
 	}
 	
@@ -68,8 +68,11 @@ StatusType Festival::RemoveBand(int bandID) {
 		
 		num_of_bands--;
 		sum_of_prices -= the_band->price;
-		min_price = bands_by_price.GetMin()->band->price - discount;
-		
+		if (num_of_bands > 0) {
+			min_price = bands_by_price.GetMin()->band->price - discount;
+		} else {
+			min_price = -1;
+		}
 		bands.remove(&has_id); // This must be done last,
 							   // the other trees depend on it
 		return SUCCESS;
@@ -128,7 +131,11 @@ StatusType Festival::ChangePrice(int bandID, int price) {
 	bands_by_price.insert(bbp);
 	bands_by_votes.insert(bbv);
 	
-	min_price = bands_by_price.GetMin()->band->price - discount;
+	if (num_of_bands == 1) {
+		min_price = price;
+	} else {
+		min_price = bands_by_price.GetMin()->band->price - discount;
+	}
 	
 	
 	return SUCCESS;
@@ -198,7 +205,7 @@ StatusType Festival::BandList(int** bandList, int* size) {
 
 bool Festival::GetBands::DoWork(BandByVotes* b) {
 	if ((b->band->price - discount) <= budget) {
-		budget -= b->band->price;
+		budget -= (b->band->price - discount);
 		(*bandList)[i] = b->band->band_id;
 		i++;
 	}
@@ -207,7 +214,7 @@ bool Festival::GetBands::DoWork(BandByVotes* b) {
 
 bool Festival::CountBands::DoWork(BandByVotes* b) {
 	if ((b->band->price - discount) <= budget) {
-		budget -= b->band->price;
+		budget -= (b->band->price - discount);
 		count++;
 	}
 	return false;
