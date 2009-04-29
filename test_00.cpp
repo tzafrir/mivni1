@@ -457,6 +457,21 @@ int main(int argc, char** argv) {
 	}
 	cout << endl;
 	
+	cout << endl << "Clean slate: deleting fest and making a new one" << endl;	
+	
+	delete fest;	
+	fest = new Festival(300);
+	
+	expect(
+		"Add 2, 200",
+		SUCCESS,
+		fest->AddBand(2, 200)
+	);
+	expect(
+		"Remove 2",
+		SUCCESS,
+		fest->RemoveBand(2)
+	);
 	return 0;
 }
 
