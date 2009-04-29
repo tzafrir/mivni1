@@ -472,6 +472,8 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->RemoveBand(2)
 	);
+	delete fest;
+	delete bandList;
 	return 0;
 }
 
