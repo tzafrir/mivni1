@@ -13,33 +13,32 @@ StatusType Festival::AddBand(int bandID, int price){
 	if ((bandID < 0) || (price < 0)) {
 		return INVALID_INPUT;
 	}
-	
-	// Note: if we have a discount in effect, we add the band with a price
-	//       that matches that discount.
-	Band* new_band = new Band(bandID, price+discount);
-	if (new_band == NULL) {
-		return ALLOCATION_ERROR;
+	Band* new_band = NULL; //init to null, so we'll be able to call free on them before the new
+	BandByPrice* new_band_by_price = NULL;
+	BandByVotes* new_band_by_votes = NULL;
+
+	try
+	{
+		// Note: if we have a discount in effect, we add the band with a price
+		//       that matches that discount.
+		new_band = new Band(bandID, price+discount);
+		new_band_by_price = new BandByPrice(new_band);
+		BandByVotes* new_band_by_votes = new BandByVotes(new_band);			
+		if (bands.insert(new_band) != bands.Success) { // Band already exists, or other failure
+			delete new_band;
+			delete new_band_by_price;
+			delete new_band_by_votes;
+			return FAILURE;
+		}
+		bands_by_price.insert(new_band_by_price); // Must succeed
+		bands_by_votes.insert(new_band_by_votes);
 	}
-	BandByPrice* new_band_by_price = new BandByPrice(new_band);
-	if (new_band_by_price == NULL) {
-		delete new_band; // Leak proof
-		return ALLOCATION_ERROR;
-	}
-	BandByVotes* new_band_by_votes = new BandByVotes(new_band);
-	if (new_band_by_votes == NULL) {
-		delete new_band;
-		delete new_band_by_price;
-		return ALLOCATION_ERROR;
-	}
-		
-	if (bands.insert(new_band) != bands.Success) { // Band already exists, or other failure
+	catch (std::bad_alloc)
+	{
 		delete new_band;
 		delete new_band_by_price;
 		delete new_band_by_votes;
-		return FAILURE;
 	}
-	bands_by_price.insert(new_band_by_price); // Must succeed
-	bands_by_votes.insert(new_band_by_votes);
 	
 	if ((price < min_price) || (num_of_bands == 0)) {
 		min_price = price;
