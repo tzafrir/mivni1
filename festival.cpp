@@ -23,15 +23,25 @@ StatusType Festival::AddBand(int bandID, int price){
 		//       that matches that discount.
 		new_band = new Band(bandID, price+discount);
 		new_band_by_price = new BandByPrice(new_band);
-		BandByVotes* new_band_by_votes = new BandByVotes(new_band);			
+		new_band_by_votes = new BandByVotes(new_band);;
+
 		if (bands.insert(new_band) != bands.Success) { // Band already exists, or other failure
 			delete new_band;
 			delete new_band_by_price;
 			delete new_band_by_votes;
 			return FAILURE;
 		}
+
+		new_band = NULL; //we dont want to free new_band in the catch block
+						//if we already inserted it to the tree
+	
+		
 		bands_by_price.insert(new_band_by_price); // Must succeed
-		bands_by_votes.insert(new_band_by_votes);
+		new_band_by_price = NULL; //we dont want to free new_band_by_price in the catch block
+						//if we already inserted it to the tree
+	
+		bands_by_votes.insert(new_band_by_votes);// Must succeed
+
 	}
 	catch (std::bad_alloc)
 	{
@@ -90,14 +100,20 @@ StatusType Festival::AddVotes(int bandID, int numVotes) {
 	if (the_band == NULL) {
 		return FAILURE;
 	}
-	
-	BandByVotes* bbv = new BandByVotes(the_band);
-	if (bbv == NULL) {
+
+	BandByVotes* bbv = NULL;
+	try
+	{
+		bbv = new BandByVotes(the_band);
+		bands_by_votes.remove(bbv); // Will never fail
+		the_band->votes += numVotes;
+		bands_by_votes.insert(bbv);
+	}
+	catch (std::bad_alloc)
+	{
+		delete bbv;
 		return ALLOCATION_ERROR;
 	}
-	bands_by_votes.remove(bbv); // Will never fail
-	the_band->votes += numVotes;
-	bands_by_votes.insert(bbv);
 	return SUCCESS;
 }
 
@@ -110,26 +126,35 @@ StatusType Festival::ChangePrice(int bandID, int price) {
 	if (the_band == NULL) {
 		return FAILURE;
 	}
-	BandByPrice* bbp = new BandByPrice(the_band);
-	if (bbp == NULL) {
-		return ALLOCATION_ERROR;
+	
+	BandByPrice* bbp = NULL;
+	BandByVotes* bbv = NULL;
+		
+	try
+	{
+		bbp = new BandByPrice(the_band);
+		bbv = new BandByVotes(the_band);
+
+		// These are guaranteed to succeed:
+		bands_by_price.remove(bbp);
+		bands_by_votes.remove(bbv);
+		
+		sum_of_prices += price + discount - ( the_band->price); // Reduce old price, add new price
+		
+		// Include discount value when modifying the price	
+		the_band->price = price+discount;
+		
+		bands_by_price.insert(bbp);
+		bbp = NULL;	//we dont want to free new_band_by_price in the catch block
+						//if we already inserted it to the tree
+		bands_by_votes.insert(bbv);
 	}
-	BandByVotes* bbv = new BandByVotes(the_band);
-	if (bbv == NULL) {
+	catch (std::bad_alloc)
+	{
 		delete bbp;
+		delete bbv;
 		return ALLOCATION_ERROR;
 	}
-	// These are guaranteed to succeed:
-	bands_by_price.remove(bbp);
-	bands_by_votes.remove(bbv);
-	
-	sum_of_prices += price + discount - ( the_band->price); // Reduce old price, add new price
-	
-	// Include discount value when modifying the price	
-	the_band->price = price+discount;
-	
-	bands_by_price.insert(bbp);
-	bands_by_votes.insert(bbv);
 	
 	if (num_of_bands == 1) {
 		min_price = price;
@@ -196,8 +221,16 @@ StatusType Festival::BandList(int** bandList, int* size) {
 	bands_by_votes.inorder(&counter);
 	
 	*size = counter.count;
-	
-	*bandList = new int[counter.count];
+	try
+	{
+		*bandList = new int[counter.count];
+	}
+
+	catch (std::bad_alloc)
+	{
+		return ALLOCATION_ERROR;
+	}
+
 	GetBands getter(bandList, budget, discount);
 	bands_by_votes.inorder(&getter);
 	return SUCCESS;
