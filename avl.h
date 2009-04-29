@@ -114,67 +114,8 @@ public:
 		return item;
 	}
 
-	//basic tree printing function, only usefull when the tree is small
-	void print_tree() const
-	{
-		int height = Height();
-		if (height == -1)
-		{
-			std::cout << "Tree is Empty";
-		}
-		else
-		{
-			height+= 2;// 1 for the formula in the next line, and another one for the null leafs
-			int Maxnodes = (1 << (height)) -1; //2^ (height) -1
-
-			node** Array = new node*[Maxnodes];
-			node** ptr= Array;
-
-			for (int i=0; i< Maxnodes; i++)
-			{
-				*(ptr++) = NULL; //init array
-			}
-
-			ptr= Array;
-
-			print_tree(root,0,Array); //fill array with tree nodes
-
-			//print array
-			height--; //no need to print all the none in last line
-			for (int i=0; i<height; i++)
-			{
-				for (int j = 0; j < 1 << i; j++)
-				{
-					if (i != height-1)
-					{
-						for (int k = 0; k < (1 << (height-2-i)) ; k++)
-						{
-							std::cout << "     ";
-						}
-						//std::cout << char(8) << char(8); //backspace
-					}
-
-					if (*ptr == NULL)
-					{
-						std::cout << "none ";
-					}
-					else
-					{
-						std::cout << *(*ptr)->data <<  '('  << (*ptr)->bf <<  ')';
-					}
-					std::cout <<  ',';
-					ptr++;
-				}
-				std::cout << char(8); //backspace
-				std::cout << ' ' << std::endl;
-			}
-			delete[] Array;
-		}
-		std::cout <<  std::endl;
-	}
-
 private:
-	#define NumberOfChildren 2
+	#define NumberOfChildren 2 // FIXME
 
 	 // internal class - not needed for usage of Tree
 	class node
@@ -182,7 +123,7 @@ private:
 	public:
 		node(T *newdata) : data(newdata), bf(0)
 		{
-			Children[0]=Children[1] = NULL;
+			Children[Left]=Children[Right] = NULL;
 		}
 		T *data;
 		node* Children[NumberOfChildren];
@@ -444,17 +385,6 @@ private:
 		}
 		assert(root->bf >=-1 && root->bf <= 1);
 		return height;
-	}
-
-	//internal function for print_tree, puts the tree in Array
-	static void print_tree(node* root,int index, node* Array[])
-	{
-		Array[index] = root;
-		if (root != NULL)
-		{
-			print_tree(root->Children[Left],(index +1) * 2 -1,Array);
-			print_tree(root->Children[Right],(index +1) * 2,Array);
-		}
 	}
 
 	//internal inorder function
