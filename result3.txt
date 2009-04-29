@@ -1,0 +1,16 @@
+Init done.
+AddBand: Success
+AddBand: Success
+AddVotes: Success
+BandList: Success 0,1 2
+AddVotes: Success
+BandList: Success 1,0 2
+ChangeBudget: Success
+BandList: Success 1 1
+RemoveBand: Success
+BandList: Success 0 1
+ChangeBudget: Success
+BandList: Success  0
+ChangeAllPrices: Success
+BandList: Success 0 1
+Quit done.

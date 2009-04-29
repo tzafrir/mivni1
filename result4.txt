@@ -1,0 +1,18 @@
+Init done.
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+ChangeAllPrices: Success
+GetPrice: Success 950
+ChangePrice: Success
+GetPrice: Success 2000
+RemoveBand: Success
+GetPrice: Failure
+Quit done.

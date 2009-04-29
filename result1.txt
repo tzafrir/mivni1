@@ -1,0 +1,23 @@
+Init done.
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+RemoveBand: Success
+RemoveBand: Success
+RemoveBand: Success
+AddBand: Success
+AddBand: Failure
+ChangePrice: Success
+AddBand: Failure
+RemoveBand: Success
+RemoveBand: Failure
+MaxNeededBudget: Success 3370
+Quit done.

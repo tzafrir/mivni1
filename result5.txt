@@ -1,0 +1,18 @@
+Init done.
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddBand: Success
+AddVotes: Success
+AddVotes: Success
+AddVotes: Success
+AddVotes: Success
+AddVotes: Success
+MaxNeededBudget: Success 119000
+BandList: Success 2,1,0,4 4
+AddBand: Success
+ChangeBudget: Success
+BandList: Success 2,6 2
+Quit done.

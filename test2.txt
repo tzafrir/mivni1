@@ -1,0 +1,11 @@
+Init 10000
+AddBand 0 1000
+AddBand 1 2000
+AddBand 2 3000
+ChangeAllPrices 500
+AddBand 3 4000
+AddBand 4 5000
+ChangeAllPrices 1000
+ChangeAllPrices 200
+MaxNeededBudget
+Quit

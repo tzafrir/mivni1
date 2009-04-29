@@ -1,0 +1,18 @@
+Init 10000
+AddBand 0 1000
+AddBand 1 500
+AddBand 2 500
+AddBand 3 100000
+AddBand 4 8000
+AddBand 5 9000
+AddVotes 0 10
+AddVotes 1 10
+AddVotes 2 10
+AddVotes 3 20
+AddVotes 4 5
+MaxNeededBudget
+BandList
+AddBand 6 200
+ChangeBudget 900
+BandList
+Quit

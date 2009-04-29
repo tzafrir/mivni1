@@ -1,0 +1,16 @@
+Init 1000
+AddBand 0 100
+AddBand 1 200
+AddVotes 0 100
+BandList
+AddVotes 1 500
+BandList
+ChangeBudget 250
+BandList
+RemoveBand 1
+BandList
+ChangeBudget 80
+BandList
+ChangeAllPrices 50
+BandList
+Quit

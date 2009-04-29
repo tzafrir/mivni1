@@ -1,0 +1,11 @@
+Init done.
+AddBand: Success
+AddBand: Success
+AddBand: Success
+ChangeAllPrices: Success
+AddBand: Success
+AddBand: Success
+ChangeAllPrices: Failure
+ChangeAllPrices: Success
+MaxNeededBudget: Success 12500
+Quit done.

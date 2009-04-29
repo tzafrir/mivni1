@@ -1,0 +1,26 @@
+Init 10000
+AddBand 0  1000
+AddBand 10 2000
+AddBand 20 3000
+AddBand 30 100
+AddBand 40 500
+AddBand 50 10
+AddBand 45 20
+AddBand 35 20
+AddBand 25 100
+AddBand 15 20
+AddBand 5 10
+RemoveBand 20
+RemoveBand 40
+RemoveBand 5
+AddBand 20 100
+AddBand 20 100
+ChangePrice 20 200
+AddBand 20 100
+RemoveBand 30
+RemoveBand 5
+MaxNeededBudget
+Quit
+
+
+
