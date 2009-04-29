@@ -38,6 +38,7 @@ StatusType Festival::AddBand(int bandID, int price){
 		delete new_band;
 		delete new_band_by_price;
 		delete new_band_by_votes;
+		return ALLOCATION_ERROR;
 	}
 	
 	if ((price < min_price) || (num_of_bands == 0)) {
