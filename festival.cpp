@@ -118,7 +118,7 @@ StatusType Festival::AddVotes(int bandID, int numVotes) {
 }
 
 StatusType Festival::ChangePrice(int bandID, int price) {
-	if ((bandID < 0) || (price <= 0)) {
+	if ((bandID < 0) || (price < 0)) {
 		return INVALID_INPUT;
 	}
 	Band has_id(bandID, 0);
