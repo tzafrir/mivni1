@@ -12,3 +12,5 @@ vg: test_00
 clean:
 	-rm test_00 test_01 *.o
 main1: main1.cpp library1.o festival.o
+test6: main1
+	./main1 < tests/test6.txt > tests/my6.txt
