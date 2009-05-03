@@ -397,7 +397,21 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->MaxNeededBudget(&maxbudget)
 	);
+
 	cout << "\t" << SPACES << (maxbudget == 3000 ? GREEN : RED) << maxbudget << WHITE << endl;
+	expect(
+		"RemoveBand 0",
+		SUCCESS,
+		fest->RemoveBand(0)
+	);
+		expect(
+		"Expecting MaxNeededBudget to be 1000",
+		SUCCESS,
+		fest->MaxNeededBudget(&maxbudget)
+	);
+
+	cout << "\t" << SPACES << (maxbudget == 1000 ? GREEN : RED) << maxbudget << WHITE << endl;
+
 	cout << endl << "Clean slate: deleting fest and making a new one" << endl;	
 	
 	delete fest;	
