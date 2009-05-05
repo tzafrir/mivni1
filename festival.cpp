@@ -1,5 +1,6 @@
 #include "festival.h"
 #include "band.h"
+#include <stdlib.h> 
 
 StatusType Festival::ChangeBudget(int budget) {
 	if (budget < 0) {
@@ -221,13 +222,8 @@ StatusType Festival::BandList(int** bandList, int* size) {
 	bands_by_votes.inorder(&counter);
 	
 	*size = counter.count;
-	try
-	{
-		*bandList = new int[counter.count];
-	}
-
-	catch (std::bad_alloc)
-	{
+	*bandList = (int*)malloc(counter.count * sizeof(int));
+	if (*bandList == NULL) {
 		return ALLOCATION_ERROR;
 	}
 
