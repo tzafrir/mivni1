@@ -14,7 +14,7 @@ StatusType Festival::AddBand(int bandID, int price){
 	if ((bandID < 0) || (price < 0)) {
 		return INVALID_INPUT;
 	}
-	Band* new_band = NULL; //init to null, so we'll be able to call free on them before the new
+	Band* new_band = NULL; //init to null, so we'll be able to call delete on them before the new
 	BandByPrice* new_band_by_price = NULL;
 	BandByVotes* new_band_by_votes = NULL;
 
