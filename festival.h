@@ -11,10 +11,10 @@
 
 class Festival {
 	int budget;
-	int discount;
+	unsigned long discount;
 	int min_price; // Post discount
-	int num_of_bands;
-	int sum_of_prices;
+	unsigned int num_of_bands;
+	unsigned long sum_of_prices;
 	AVL<Band, true> bands;
 	AVL<BandByPrice, true> bands_by_price;
 	AVL<BandByVotes, true> bands_by_votes;
@@ -38,7 +38,6 @@ class Festival {
 	
 
 		public:
-	int _min_price() { return min_price; } // FIXME this shouldn't be here TODO
 	Festival(int budget) : budget(budget), discount(0), min_price(-1), 
 		num_of_bands(0), sum_of_prices(0) {};
 	StatusType ChangeBudget(int budget);

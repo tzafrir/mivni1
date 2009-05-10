@@ -44,7 +44,7 @@ StatusType Festival::AddBand(int bandID, int price){
 		bands_by_votes.insert(new_band_by_votes);// Must succeed
 
 	}
-	catch (std::bad_alloc)
+	catch (std::bad_alloc&)
 	{
 		delete new_band;
 		delete new_band_by_price;
@@ -110,7 +110,7 @@ StatusType Festival::AddVotes(int bandID, int numVotes) {
 		the_band->votes += numVotes;
 		bands_by_votes.insert(bbv);
 	}
-	catch (std::bad_alloc)
+	catch (std::bad_alloc&)
 	{
 		delete bbv;
 		return ALLOCATION_ERROR;
@@ -150,7 +150,7 @@ StatusType Festival::ChangePrice(int bandID, int price) {
 						//if we already inserted it to the tree
 		bands_by_votes.insert(bbv);
 	}
-	catch (std::bad_alloc)
+	catch (std::bad_alloc&)
 	{
 		delete bbp;
 		delete bbv;
@@ -207,7 +207,7 @@ StatusType Festival::MaxNeededBudget(int* maxBudget) {
 		return FAILURE;
 	}
 	
-	*maxBudget = sum_of_prices - (num_of_bands * discount);
+	*maxBudget = (int)(sum_of_prices - ((long)num_of_bands * (long)discount));
 	return SUCCESS;
 }
 
@@ -221,14 +221,19 @@ StatusType Festival::BandList(int** bandList, int* size) {
 	CountBands counter(budget, discount);
 	bands_by_votes.inorder(&counter);
 	
+	
+	*bandList = NULL; //in case size is zero, we dont do malloc 
 	*size = counter.count;
-	*bandList = (int*)malloc(counter.count * sizeof(int));
-	if (*bandList == NULL) {
-		return ALLOCATION_ERROR;
-	}
+	if (*size != 0) {
+		*bandList = (int*)malloc(counter.count * sizeof(int));
+	
+		if (*bandList == NULL) {
+			return ALLOCATION_ERROR;
+		}
 
-	GetBands getter(bandList, budget, discount);
-	bands_by_votes.inorder(&getter);
+		GetBands getter(bandList, budget, discount);
+		bands_by_votes.inorder(&getter);
+	}
 	return SUCCESS;
 }
 

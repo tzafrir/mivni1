@@ -57,7 +57,6 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->AddBand(2048, 1)
 	);
-	cout << "\t" << SPACES << (fest->_min_price() == 1 ? GREEN : RED) << fest->_min_price() << WHITE << endl;
 	expect(
 		"bandID = -1",
 		INVALID_INPUT,
@@ -219,7 +218,6 @@ int main(int argc, char** argv) {
 	
 	cout << endl << "ChangeAllPrices" << endl;
 	cout << "\tExpecting min_price to be 500" << endl;
-	cout << "\t" << SPACES << (fest->_min_price() == 500 ? GREEN : RED) << fest->_min_price() << WHITE << endl;
 	expect(
 		"discount = 0",
 		INVALID_INPUT,
@@ -247,7 +245,7 @@ int main(int argc, char** argv) {
 	);
 	cout << "\t" << SPACES << (price == 126 ? GREEN : RED) << price << WHITE << endl;
 	cout << "\tExpecting min_price to be 126" << endl;
-	cout << "\t" << SPACES << (fest->_min_price() == 126 ? GREEN : RED) << fest->_min_price() << WHITE << endl;
+
 	expect(
 		"discount = 127, should fail",
 		FAILURE,
@@ -258,13 +256,13 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->RemoveBand(2048)
 	);
-	cout << "\t" << SPACES << (fest->_min_price() == 498 ? GREEN : RED) << fest->_min_price() << WHITE << endl;
+
 	expect(
 		"Add 5 with price 1, should be min_price",
 		SUCCESS,
 		fest->AddBand(5,1)
 	);
-	cout << "\t" << SPACES << (fest->_min_price() == 1 ? GREEN : RED) << fest->_min_price() << WHITE << endl;
+
 	
 	cout << endl << "Clean slate: deleting fest and making a new one" << endl;	
 	
@@ -486,6 +484,18 @@ int main(int argc, char** argv) {
 		SUCCESS,
 		fest->RemoveBand(2)
 	);
+	delete fest;	
+	fest = new Festival(300);
+	
+	fest->AddBand(1,400);
+	expect(
+		"bandList",
+		SUCCESS,
+		fest->BandList(&bandList, &size)
+	);
+	cout << "size = " << size << endl;
+	cout << "bandlist == null : " << (bandList == NULL) << endl;
+	
 	delete fest;
 	delete bandList;
 	return 0;
