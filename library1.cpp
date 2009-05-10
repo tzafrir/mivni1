@@ -5,10 +5,13 @@ void* Init(int budget) {
 	if (budget < 0) {
 		return NULL;
 	}
-	
-	Festival* DS = new Festival(budget);
-	
-	return (void*)DS;
+	try {
+		Festival* DS = new Festival(budget);
+		return (void*)DS;
+	}
+	catch (std::bad_alloc&) {
+		return NULL;
+	}
 }
 
 StatusType ChangeBudget(void* DS, int budget) {
