@@ -215,14 +215,15 @@ StatusType Festival::BandList(int** bandList, int* size) {
 	if ((bandList == NULL) || (size == NULL)) {
 		return INVALID_INPUT;
 	}
+	*bandList = NULL; //in case size is zero, we dont do malloc 
+					  //in case we have 0 bands, we're still required
+					  //	to have NULL in bandList
 	if (num_of_bands == 0) {
 		return FAILURE;
 	}
 	CountBands counter(budget, discount);
 	bands_by_votes.inorder(&counter);
 	
-	
-	*bandList = NULL; //in case size is zero, we dont do malloc 
 	*size = counter.count;
 	if (*size != 0) {
 		*bandList = (int*)malloc(counter.count * sizeof(int));
