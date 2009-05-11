@@ -36,14 +36,6 @@ public:
 		Destroy(root);
 	}
 
-	// returns the number of items in the tree
-	int NumberOfItems() const
-	{
-		CountNodes c;
-		inorder(&c);
-		return c.Nodes;
-	}
-
 	// returns the Height of the tree
 	int Height() const
 	{
@@ -122,7 +114,7 @@ public:
 	}
 
 private:
-	#define NumberOfChildren 2
+	static const int NumberOfChildren = 2;
 
 	 // internal class - not needed for usage of Tree
 	class node
