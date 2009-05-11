@@ -116,7 +116,7 @@ public:
 	}
 
 private:
-	#define NumberOfChildren 2 // FIXME
+	#define NumberOfChildren 2
 
 	 // internal class - not needed for usage of Tree
 	class node
