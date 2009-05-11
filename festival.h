@@ -1,10 +1,6 @@
 #ifndef _FESTIVAL_H
 #define _FESTIVAL_H
 
-#define avl
-
-#include <limits.h>
-
 #include "library1.h"
 #include "avl.h"
 #include "band.h"
