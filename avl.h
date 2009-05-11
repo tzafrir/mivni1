@@ -50,7 +50,7 @@ public:
 	}
 
 
-	//travers the tree in order until p->dowork return true
+	//traverse the tree in order until p->dowork return true
 	//calls p->DoWork on each item in the tree
 	// notice: if you want to change an item in a way that effects how
 	// it compares to other items, you should remove it from the tree
@@ -79,7 +79,7 @@ public:
 		return remove(root, item) != Error ?  Success : Item_doesnt_exist;
 	}
 
-	// retrives an item from the tree, the argument
+	// retrieves an item from the tree, the argument
 	// should be an item which is equal to the item
 	// to remove according to the <= function
 	T* find(T *item) const
@@ -96,7 +96,7 @@ public:
 			directions dir = (directions) res; //bellow -> left, above -> right
 			ptr = ptr->Children[dir];
 		}
-		return NULL; //if we arrive here item wasnt found
+		return NULL; //if we arrive here item wasn't found
 	}
 
 	//return the minimal item in the tree according to <=,
@@ -158,7 +158,7 @@ private:
 		Error //problem in insert, remove, etc..
 	};
 
-	//recives a direction and returns the opposite direction
+	//receives a direction and returns the opposite direction
 	static inline directions OtherDirection(directions dir)
 	{
 		return  (directions) (1 - dir);
@@ -174,7 +174,7 @@ private:
 		Equal
 	};
 	
-	//calc the bfchange if a balanced tree grow  by 1 in dir direction
+	//calc the bfchange if a balanced tree grow by 1 in dir direction
 	//if dir = left we need to add 1 to bf, if 
 	//dir == right we need to add -1 to bf
 	static inline int CalcBfChange(directions Dir)
@@ -182,7 +182,7 @@ private:
 		return (1 - 2 * Dir);
 	}
 
-	//cmpares two items using <= and returns result
+	//compares two items using <= and returns result
 	static CmpResult Cmp(const T* x,const T* y)
 	{
 		if (*y <= *x)
@@ -203,8 +203,8 @@ private:
 	}
 
 
-	//recives the root and the change in bf, updates Bf and
-	//preforms roll if nessasry and returns wheter a roll occored
+	//receives the root and the change in bf, updates Bf and
+	//preforms roll if necessary and returns whether a roll occurred
 	static bool UpdateBalance(node* &root,int BfChange)
 	{
 		root->bf += BfChange;
@@ -218,7 +218,7 @@ private:
 			{	//if direction is Right(=0), we need
 				//to check if the left subtree's bf is -1 and if is is do LR roll
 				//if direction is Left(=1), we need
-				//to check if the Right subtree's bf is 1 and if it is do Rl roll
+				//to check if the Right subtree's bf is 1 and if it is do RL roll
 
 				//LR or RL roll
 				Roll(root->Children[OppositeDirection],OppositeDirection,RollDirection);
@@ -245,23 +245,23 @@ private:
 		int BfValue = CalcBfChange(RollDirection); //1 for left -1 for right
 
 		//balance updates
-		//description for left roll (other side is symetric)
+		//description for left roll (other side is symmetric)
 		//old root:
-		//we lose the right child, and the childs right child
-		//so first we decrese one for child
+		//we lose the right child, and the child's right child
+		//so first we decrease one for child
 		//second we check if the right child's right subtree is bigger
-		//the right child's left sub tree if it is we also gain the diffrence between the subtrees
+		//the right child's left sub tree if it is we also gain the difference between the subtrees
 		root->bf +=  BfValue;
 		if (ptr->bf * BfValue < 0)
 		{
 			root->bf -=  ptr->bf;
 		}
 
-		//description for left roll (other side is symetric)
+		//description for left roll (other side is symmetric)
 		//new root:
 		//in the new root we gain the old root as the left child,
 		//now we have to check if our old left subtree is smaller then
-		//the oldroot left subtree, if it his we also gain this diffrence
+		//the oldroot left subtree, if it his we also gain this difference
 		//we can preform this check according to the old root new bfvalue
 		ptr->bf  +=  BfValue;
 		if (root->bf * BfValue > 0)
@@ -295,7 +295,7 @@ private:
 			{
 				if (UpdateBalance(root,CalcBfChange(dir)) || root->bf == 0)
 				{
-					//if the tree is balanced now it was imblanced we didnt change the hight,
+					//if the tree is balanced now it was imbalanced we didn't change the height,
 					//if its -1 or 1 it means that one of the sides grow
 					height = NoHeightChange;
 				}
@@ -310,7 +310,7 @@ private:
 	{
 		if (root == NULL)
 		{
-			return Error; //item wasnt found
+			return Error; //item wasn't found
 		}
 
 		//else
@@ -324,7 +324,7 @@ private:
 				delete(root->data); //free data
 			}
 			//found item need to delete it
-			if (root->Children[Right] == NULL) //we dont have right child
+			if (root->Children[Right] == NULL) //we don't have right child
 			{
 				node* ptr = root; //save pointer to root to free it
 			    root = root->Children[Left]; //make the left child (or null) the name child of parent
@@ -333,7 +333,7 @@ private:
 			}
 			else //we have a right child
 			{
-				//extranct the minimum of the sub tree and put it in root
+				//extract the minimum of the sub tree and put it in root
 				height = ExtractMin(root->Children[Right],root->data);
 				BfChange = 1;
 			}
@@ -350,17 +350,17 @@ private:
 			if ((UpdateBalance(root,BfChange) && root->bf != 0)
 				|| root->bf != 0)
 			{
-				height = NoHeightChange; //if we preformed a roll and the tree still isnt balanced
-				//or if we didnt, the tree was balanced but now it isnt then the height didnt change
+				height = NoHeightChange; //if we preformed a roll and the tree still isn't balanced
+				//or if we didn't, the tree was balanced but now it isn't then the height didn't change
 			}
 		}
 		assert(root->bf >=-1 && root->bf <= 1);
 		return height;	
 	}
 
-	//Extract the minumum from the tree and put it in Min
+	//Extract the minimum from the tree and put it in Min
 	//could be done with getmin + remove, but then we would travel
-	//the tree twice and do unnesesary compares
+	//the tree twice and do unnecessary compares
 	static HeightChange ExtractMin(node* &root,T* &Min)
 	{
 		if (root->Children[Left] == NULL)
@@ -379,7 +379,7 @@ private:
 					|| root->bf != 0)
 			{
 				height = NoHeightChange; //if we preformed a roll and now the tree is balanced,
-				//or if we didnt, the tree was balanced but now it isnt then the height didnt change
+				//or if we didn't, the tree was balanced but now it isn't then the height didn't change
 			}
 		}
 		assert(root->bf >=-1 && root->bf <= 1);
