@@ -8,7 +8,6 @@
  */
 
 #include <iostream>
-#include <cassert>
 
 template <typename T,bool FreeItems>
 class AVL{
@@ -300,7 +299,6 @@ private:
 					height = NoHeightChange;
 				}
 			}
-			assert(root->bf >=-1 && root->bf <= 1);
 			return height;
 		}
 	}
@@ -354,7 +352,6 @@ private:
 				//or if we didn't, the tree was balanced but now it isn't then the height didn't change
 			}
 		}
-		assert(root->bf >=-1 && root->bf <= 1);
 		return height;	
 	}
 
@@ -382,7 +379,6 @@ private:
 				//or if we didn't, the tree was balanced but now it isn't then the height didn't change
 			}
 		}
-		assert(root->bf >=-1 && root->bf <= 1);
 		return height;
 	}
 
