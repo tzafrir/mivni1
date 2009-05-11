@@ -2,6 +2,12 @@
 #include "band.h"
 #include <stdlib.h> 
 
+/*
+ *
+ *	festival.cpp
+ *
+ */
+
 StatusType Festival::ChangeBudget(int budget) {
 	if (budget < 0) {
 		return INVALID_INPUT;

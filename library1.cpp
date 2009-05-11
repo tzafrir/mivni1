@@ -1,6 +1,18 @@
 #include "library1.h"
 #include "festival.h"
 
+/*
+ *
+ *	library1.cpp
+ *
+ *  by Tzafrir Rehan and Ilya Lesokhin
+ *       039811880         305930133
+ *
+ *  tzafrir@cs.technion.ac.il
+ *   silyal@t2.technion.ac.il
+ *
+ */
+
 void* Init(int budget) {
 	if (budget < 0) {
 		return NULL;

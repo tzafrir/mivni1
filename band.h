@@ -1,6 +1,11 @@
 #ifndef _BAND_H
 #define _BAND_H
 
+/*
+ *
+ *	band.h
+ *
+ */
 
 class Band {
 		public:
